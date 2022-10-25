@@ -5,6 +5,7 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo'
 import { RestaurantModule } from './restaurant/restaurant.module'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { ConfigModule } from '@nestjs/config'
+import { Restaurant } from './restaurant/entities/restaurant.entity'
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import { ConfigModule } from '@nestjs/config'
       database: process.env.DB_DATABASE,
       synchronize: true,
       logging: true,
+      entities: [Restaurant],
     }),
     RestaurantModule,
   ],

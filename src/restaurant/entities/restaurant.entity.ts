@@ -1,16 +1,26 @@
-import { Field, ObjectType } from '@nestjs/graphql';
+import { Field, ObjectType } from '@nestjs/graphql'
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
 
 @ObjectType()
+@Entity()
 export class Restaurant {
+  @PrimaryGeneratedColumn()
+  @Field(() => Number)
+  id: number
+
   @Field(() => String)
-  name: string;
+  @Column()
+  name: string
 
   @Field(() => Boolean, { nullable: true })
-  isVegan: boolean;
+  @Column()
+  isVegan: boolean
 
   @Field(() => String)
-  address: string;
+  @Column()
+  address: string
 
   @Field(() => String)
-  ownersName: string;
+  @Column()
+  ownersName: string
 }
