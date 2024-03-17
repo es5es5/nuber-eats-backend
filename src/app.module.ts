@@ -1,11 +1,12 @@
-import { Module } from '@nestjs/common'
-import * as Joi from 'joi'
-import { GraphQLModule } from '@nestjs/graphql'
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo'
-import { RestaurantModule } from './restaurant/restaurant.module'
-import { TypeOrmModule } from '@nestjs/typeorm'
+import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
-import { Restaurant } from './restaurant/entities/restaurant.entity'
+import { GraphQLModule } from '@nestjs/graphql'
+import { TypeOrmModule } from '@nestjs/typeorm'
+import * as Joi from 'joi'
+import { CommonModule } from './common/common.module'
+import { User } from './users/entities/user.entity'
+import { UsersModule } from './users/users.module'
 
 @Module({
   imports: [
@@ -35,9 +36,10 @@ import { Restaurant } from './restaurant/entities/restaurant.entity'
       database: process.env.DB_DATABASE,
       synchronize: true,
       logging: true,
-      entities: [Restaurant],
+      entities: [User],
     }),
-    RestaurantModule,
+    UsersModule,
+    CommonModule,
   ],
 })
 export class AppModule {}
