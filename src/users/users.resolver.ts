@@ -1,7 +1,8 @@
-import { Resolver, Query, Mutation, Args } from '@nestjs/graphql'
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
+import { CreateAccountInput, CreateAccountOutput } from './dtos/create-account.dto'
 import { User } from './entities/user.entity'
 import { UsersService } from './users.service'
-import { CreateAccountInput, CreateAccountOutput } from './dtos/create-account.dto'
+import { LoginInput, LoginOuput } from './dtos/login.dto'
 
 @Resolver(of => User)
 export class UsersResolover {
@@ -31,4 +32,6 @@ export class UsersResolover {
       }
     }
   }
+  @Mutation(returns => LoginOuput)
+  async login(@Args('input') loginInput: LoginInput): Promise<LoginOuput> {}
 }
