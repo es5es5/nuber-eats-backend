@@ -4,6 +4,7 @@ import { User } from './entities/user.entity'
 import { Injectable } from '@nestjs/common'
 import { CreateAccountInput } from './dtos/create-account.dto'
 import { error } from 'console'
+import { LoginInput } from './dtos/login.dto'
 
 @Injectable()
 export class UsersService {
@@ -30,5 +31,41 @@ export class UsersService {
       return { ok: false, error: "Couldn't cerate Account" }
     }
     // create user & hash the password
+  }
+
+  async login({ email, password }: LoginInput): Promise<{
+    ok: boolean
+    error?: string
+    token?: string
+  }> {
+    try {
+      const user = await this.usersRepository.findOne({
+        where: {
+          email,
+        },
+      })
+      if (!user) {
+        return {
+          ok: false,
+          error: 'User not found',
+        }
+      }
+      const passwordCollect = await user.checkPassword(password)
+      if (!passwordCollect) {
+        return {
+          ok: false,
+          error: 'Wrong Password',
+        }
+      }
+      return {
+        ok: true,
+        token: 'ddd',
+      }
+    } catch (error) {
+      return {
+        ok: false,
+        error,
+      }
+    }
   }
 }

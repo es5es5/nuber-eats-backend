@@ -4,6 +4,7 @@ import { Repository } from 'typeorm'
 import { CreateRestaurantDto } from './dtos/create-restaurant.dto'
 import { Restaurant } from './entities/restaurant.entity'
 import { UpdateRestaurantDto } from './dtos/update-restaurant.dto'
+import { LoginInput } from 'src/users/dtos/login.dto'
 
 @Injectable()
 export class RestaurantService {
