@@ -9,7 +9,11 @@ import { ConfigService } from '@nestjs/config'
 
 @Injectable()
 export class UsersService {
-  constructor(@InjectRepository(User) private readonly usersRepository: Repository<User>, private readonly config: ConfigService) {}
+  constructor(
+    @InjectRepository(User)
+    private readonly usersRepository: Repository<User>,
+    private readonly config: ConfigService,
+  ) {}
 
   async createAccount({ email, password, role }: CreateAccountInput): Promise<{
     ok: boolean
@@ -66,7 +70,7 @@ export class UsersService {
       )
       return {
         ok: true,
-        token: 'ddd',
+        token,
       }
     } catch (error) {
       return {
